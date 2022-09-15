@@ -1,7 +1,6 @@
 package pro.sky.seconveremp.service;
 
 import org.springframework.stereotype.Service;
-import pro.sky.seconveremp.Employee;
 import pro.sky.seconveremp.exceptions.EmployeeAlreadyAddedException;
 import pro.sky.seconveremp.exceptions.EmployeeNotFoundException;
 
@@ -10,43 +9,41 @@ import java.util.*;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private final List<Employee> employeeList;
+    private final Map <Integer, String> employeeMap;
 
     public EmployeeServiceImpl() {
-        this.employeeList = new ArrayList<>();
+        this.employeeMap = new HashMap<>();
     }
 
     @Override
-    public Employee add(String firstName, String lastName) {
-        Employee addEmp = new Employee(firstName, lastName);
-        if (employeeList.contains(addEmp)) {
+    public String add(Integer passportNumber, String name) {
+        if (employeeMap.containsKey(passportNumber)) {
             throw new EmployeeAlreadyAddedException();
         }
-        employeeList.add(addEmp);
-        return addEmp;
+        employeeMap.put(passportNumber, name);
+        return "Сотрудник " + passportNumber + " " + name + " успешно добавлен";
     }
 
     @Override
-    public Employee remove(String firstName, String lastName) {
-        Employee remEmp = new Employee(firstName, lastName);
-        if (employeeList.contains(remEmp)) {
-            employeeList.remove(remEmp);
-            return remEmp;
+    public String remove(Integer passportNumber, String name) {
+        if (employeeMap.containsKey(passportNumber)) {
+            employeeMap.remove(passportNumber, name);
+            return "Сотрудник " + passportNumber + " " + name + " успешно удален";
         }
         throw new EmployeeNotFoundException();
     }
 
     @Override
-    public Employee find(String firstName, String lastName) {
-        Employee findEmp = new Employee(firstName, lastName);
-        if (employeeList.contains(findEmp)) {
-            return findEmp;
+    public String find(Integer passportNumber, String name) {
+        if (employeeMap.containsKey(passportNumber)) {
+            return "Сотрудник " + passportNumber + " " + name + " найден";
         }
         throw new EmployeeNotFoundException();
     }
 
     @Override
-    public Collection<Employee> findAll() {
-        return Collections.unmodifiableList(employeeList);
+    public Map<Integer, String> printAll() {
+        return employeeMap;
     }
+
 }

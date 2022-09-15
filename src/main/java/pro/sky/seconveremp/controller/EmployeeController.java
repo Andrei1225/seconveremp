@@ -4,10 +4,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pro.sky.seconveremp.Employee;
 import pro.sky.seconveremp.service.EmployeeService;
 
-import java.util.Collection;
+import java.util.Map;
 
 @RestController
 
@@ -20,22 +19,22 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public Employee addEmployee(@RequestParam String firstName, @RequestParam String lastName) {
-        return service.add(firstName, lastName);
+    public String addEmployee(@RequestParam Integer passportNumber, @RequestParam String name) {
+        return service.add(passportNumber, name);
     }
 
     @GetMapping("/remove")
-    public Employee removeEmployee(@RequestParam String firstName, @RequestParam String lastName) {
-        return service.remove(firstName, lastName);
+    public String removeEmployee(@RequestParam Integer passportNumber, @RequestParam String name) {
+        return service.remove(passportNumber, name);
     }
 
     @GetMapping("/find")
-    public Employee findEmployee(@RequestParam String firstName, @RequestParam String lastName) {
-        return service.find(firstName, lastName);
+    public String findEmployee(@RequestParam Integer passportNumber, @RequestParam String name) {
+        return service.find(passportNumber, name);
     }
 
     @GetMapping
-    public Collection<Employee> findAll() {
-        return service.findAll();
+    public Map<Integer, String> findAll() {
+        return service.printAll();
     }
 }

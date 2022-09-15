@@ -1,15 +1,14 @@
 package pro.sky.seconveremp.service;
 
-import pro.sky.seconveremp.Employee;
-
-import java.util.Collection;
+import java.util.Map;
 
 public interface EmployeeService {
-    Employee add(String firstName, String lastName);
 
-    Employee remove(String firstName, String lastName);
+    String add(Integer passportNumber, String name);
 
-    Employee find(String firstName, String lastName);
+    String remove(Integer passportNumber, String name);
 
-    Collection<Employee> findAll();
+    String find(Integer passportNumber, String name);
+
+    Map<Integer, String> printAll();
 }
